@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# .path
+export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH";

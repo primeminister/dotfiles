@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+## .extra
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
+fi
+
+
+## aliases
+alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
+
+#java set home after switching
+alias jenv_set_java_home='export JAVA_HOME="$JENV_ROOT/versions/`jenv version-name`"'
+
+# Maven aliases
+alias mci="mvn clean install"
+alias mjr="mvn jetty:run"
+alias mcr="mvn clean install jetty:run"
+
+## git config additions
+git config --global commit.gpgsign false
+# git email and name
+GIT_AUTHOR_NAME="Charlie van de Kerkhof"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+GIT_AUTHOR_EMAIL="primeminister@mowd.nl"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+# git diff tool
+git config --global diff.tool "Kaleidoscope"
+git config --global merge.tool "Kaleidoscope"
+git config --global difftool.Kaleidoscope "cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\""
+git config --global mergetool.Kaleidoscope "cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot"
+git config --global difftool.prompt false
+git config --global mergetool.prompt false
+
+
+## jenv additions
+# using jenv in brew local dir
+export JENV_ROOT=/usr/local/opt/jenv;
+eval "$(jenv init -)"
+export JAVA_HOME="$JENV_ROOT/versions/`jenv version-name`"
+
+## Maven
+# MVN OPTS, already set by jenvHighlight section titles in manual pages.
+export MAVEN_OPTS="-Xmx512m -XX:+UseConcMarkSweepGC"
+
+## Node
+# Node.js config module directory for frontier.fm
+export NODE_CONFIG_DIR="$HOME/Sites/frontierfm/shared/config/"
+
